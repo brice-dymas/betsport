@@ -1,0 +1,78 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPlayerLabel" jhiTranslate="betsportV2App.player.home.createOrEditLabel">Create or edit a Player</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!player.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="player.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.player.firstName" for="field_firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName"
+                [(ngModel)]="player.firstName" required minlength="2"/>
+            <div [hidden]="!(editForm.controls.firstName?.dirty && editForm.controls.firstName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.firstName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.firstName?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+                   This field is required to be at least 2 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.player.lastName" for="field_lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" id="field_lastName"
+                [(ngModel)]="player.lastName" required minlength="2"/>
+            <div [hidden]="!(editForm.controls.lastName?.dirty && editForm.controls.lastName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastName?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+                   This field is required to be at least 2 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.player.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="player.email" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.player.phoneNumber" for="field_phoneNumber">Phone Number</label>
+            <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
+                [(ngModel)]="player.phoneNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.player.state" for="field_state">State</label>
+            <select class="form-control" name="state" [(ngModel)]="player.state" id="field_state"  required>
+                <option value="ACTIVE">{{'betsportV2App.State.ACTIVE' | translate}}</option>
+                <option value="INACTIVE">{{'betsportV2App.State.INACTIVE' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.state?.dirty && editForm.controls.state?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.state?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

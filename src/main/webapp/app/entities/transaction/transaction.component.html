@@ -1,0 +1,110 @@
+<div>
+    <h2>
+        <span jhiTranslate="betsportV2App.transaction.home.title">Transactions</span>
+        <button class="btn btn-primary float-right jh-create-entity create-transaction" [routerLink]="['/', { outlets: { popup: ['transaction-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="betsportV2App.transaction.home.createLabel">
+            Create new Transaction
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="transactions">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="code"><span jhiTranslate="betsportV2App.transaction.code">Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="transactionTime"><span jhiTranslate="betsportV2App.transaction.transactionTime">Transaction Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="transactionDate"><span jhiTranslate="betsportV2App.transaction.transactionDate">Transaction Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="amount"><span jhiTranslate="betsportV2App.transaction.amount">Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="state"><span jhiTranslate="betsportV2App.transaction.state">State</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="employee.id"><span jhiTranslate="betsportV2App.transaction.employee">Employee</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cashDesk.id"><span jhiTranslate="betsportV2App.transaction.cashDesk">Cash Desk</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="player.id"><span jhiTranslate="betsportV2App.transaction.player">Player</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="payment.id"><span jhiTranslate="betsportV2App.transaction.payment">Payment</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="openingTransaction.id"><span jhiTranslate="betsportV2App.transaction.openingTransaction">Opening Transaction</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="type.id"><span jhiTranslate="betsportV2App.transaction.type">Type</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let transaction of transactions ;trackBy: trackId">
+                <td><a [routerLink]="['../transaction', transaction.id ]">{{transaction.id}}</a></td>
+                <td>{{transaction.code}}</td>
+                <td>{{transaction.transactionTime | date:'medium'}}</td>
+                <td>{{transaction.transactionDate | date:'mediumDate'}}</td>
+                <td>{{transaction.amount}}</td>
+                <td jhiTranslate="{{'betsportV2App.State.' + transaction.state}}">{{transaction.state}}</td>
+                <td>
+                    <div *ngIf="transaction.employee">
+                        <a [routerLink]="['../employee', transaction.employee?.id ]" >{{transaction.employee?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transaction.cashDesk">
+                        <a [routerLink]="['../cash-desk', transaction.cashDesk?.id ]" >{{transaction.cashDesk?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transaction.player">
+                        <a [routerLink]="['../player', transaction.player?.id ]" >{{transaction.player?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transaction.payment">
+                        <a [routerLink]="['../transaction', transaction.payment?.id ]" >{{transaction.payment?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transaction.openingTransaction">
+                        <a [routerLink]="['../transaction', transaction.openingTransaction?.id ]" >{{transaction.openingTransaction?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transaction.type">
+                        <a [routerLink]="['../transaction-type', transaction.type?.id ]" >{{transaction.type?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../transaction', transaction.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="transactions && transactions.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

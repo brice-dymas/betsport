@@ -1,0 +1,26 @@
+
+{
+    "betsportV2App": {
+        "assignment" : {
+            "home": {
+                "title": "Assignments",
+                "createLabel": "Créer un nouveau Assignment",
+                "createOrEditLabel": "Créer ou éditer un Assignment"
+            },
+            "created": "Un nouveau Assignment a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Assignment avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Assignment avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Assignment {{ id }} ?"
+            },
+            "detail": {
+                "title": "Assignment"
+            },
+            "assignedDate": "Assigned Date",
+            "assignedTime": "Assigned Time",
+            "state": "State",
+            "employee": "Employee",
+            "period": "Period"
+        }
+    }
+}

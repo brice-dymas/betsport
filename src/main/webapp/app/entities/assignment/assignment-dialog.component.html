@@ -1,0 +1,79 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAssignmentLabel" jhiTranslate="betsportV2App.assignment.home.createOrEditLabel">Create or edit a Assignment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!assignment.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="assignment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.assignment.assignedDate" for="field_assignedDate">Assigned Date</label>
+            <div class="input-group">
+                <input id="field_assignedDate" type="text" class="form-control" name="assignedDate" ngbDatepicker  #assignedDateDp="ngbDatepicker" [(ngModel)]="assignment.assignedDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="assignedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.assignment.assignedTime" for="field_assignedTime">Assigned Time</label>
+            <div class="d-flex">
+                <input id="field_assignedTime" type="datetime-local" class="form-control" name="assignedTime" [(ngModel)]="assignment.assignedTime"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.assignedTime?.dirty && editForm.controls.assignedTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.assignedTime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.assignedTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.assignment.state" for="field_state">State</label>
+            <select class="form-control" name="state" [(ngModel)]="assignment.state" id="field_state"  required>
+                <option value="ACTIVE">{{'betsportV2App.State.ACTIVE' | translate}}</option>
+                <option value="INACTIVE">{{'betsportV2App.State.INACTIVE' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.state?.dirty && editForm.controls.state?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.state?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.assignment.employee" for="field_employee">Employee</label>
+            <select class="form-control" id="field_employee" name="employee" [(ngModel)]="assignment.employee" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="employeeOption.id === assignment.employee?.id ? assignment.employee : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.assignment.period" for="field_period">Period</label>
+            <select class="form-control" id="field_period" name="period" [(ngModel)]="assignment.period" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="periodOption.id === assignment.period?.id ? assignment.period : periodOption" *ngFor="let periodOption of periods; trackBy: trackPeriodById">{{periodOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,78 @@
+
+<div *ngIf="transaction">
+    <h2><span jhiTranslate="betsportV2App.transaction.detail.title">Transaction</span> {{transaction.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="betsportV2App.transaction.code">Code</span></dt>
+        <dd>
+            <span>{{transaction.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.transactionTime">Transaction Time</span></dt>
+        <dd>
+            <span>{{transaction.transactionTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.transactionDate">Transaction Date</span></dt>
+        <dd>
+            <span>{{transaction.transactionDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.amount">Amount</span></dt>
+        <dd>
+            <span>{{transaction.amount}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.state">State</span></dt>
+        <dd>
+            <span jhiTranslate="{{'betsportV2App.State.' + transaction.state}}">{{transaction.state}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.employee">Employee</span></dt>
+        <dd>
+            <div *ngIf="transaction.employee">
+                <a [routerLink]="['/employee', transaction.employee?.id]">{{transaction.employee?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.cashDesk">Cash Desk</span></dt>
+        <dd>
+            <div *ngIf="transaction.cashDesk">
+                <a [routerLink]="['/cash-desk', transaction.cashDesk?.id]">{{transaction.cashDesk?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.player">Player</span></dt>
+        <dd>
+            <div *ngIf="transaction.player">
+                <a [routerLink]="['/player', transaction.player?.id]">{{transaction.player?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.payment">Payment</span></dt>
+        <dd>
+            <div *ngIf="transaction.payment">
+                <a [routerLink]="['/transaction', transaction.payment?.id]">{{transaction.payment?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.openingTransaction">Opening Transaction</span></dt>
+        <dd>
+            <div *ngIf="transaction.openingTransaction">
+                <a [routerLink]="['/transaction', transaction.openingTransaction?.id]">{{transaction.openingTransaction?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.transaction.type">Type</span></dt>
+        <dd>
+            <div *ngIf="transaction.type">
+                <a [routerLink]="['/transaction-type', transaction.type?.id]">{{transaction.type?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,23 @@
+
+{
+    "betsportV2App": {
+        "transactionType" : {
+            "home": {
+                "title": "TransactionTypes",
+                "createLabel": "Créer un nouveau Transaction Type",
+                "createOrEditLabel": "Créer ou éditer un Transaction Type"
+            },
+            "created": "Un nouveau Transaction Type a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Transaction Type avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Transaction Type avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Transaction Type {{ id }} ?"
+            },
+            "detail": {
+                "title": "Transaction Type"
+            },
+            "name": "Name",
+            "action": "Action"
+        }
+    }
+}

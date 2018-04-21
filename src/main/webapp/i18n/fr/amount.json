@@ -1,0 +1,23 @@
+
+{
+    "betsportV2App": {
+        "amount" : {
+            "home": {
+                "title": "Amounts",
+                "createLabel": "Créer un nouveau Amount",
+                "createOrEditLabel": "Créer ou éditer un Amount"
+            },
+            "created": "Un nouveau Amount a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Amount avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Amount avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Amount {{ id }} ?"
+            },
+            "detail": {
+                "title": "Amount"
+            },
+            "value": "Value",
+            "state": "State"
+        }
+    }
+}

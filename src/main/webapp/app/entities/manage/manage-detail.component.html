@@ -1,0 +1,42 @@
+
+<div *ngIf="manage">
+    <h2><span jhiTranslate="betsportV2App.manage.detail.title">Manage</span> {{manage.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="betsportV2App.manage.managementDate">Management Date</span></dt>
+        <dd>
+            <span>{{manage.managementDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.manage.state">State</span></dt>
+        <dd>
+            <span jhiTranslate="{{'betsportV2App.State.' + manage.state}}">{{manage.state}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.manage.cashier">Cashier</span></dt>
+        <dd>
+            <div *ngIf="manage.cashier">
+                <a [routerLink]="['/employee', manage.cashier?.id]">{{manage.cashier?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.manage.cashDesk">Cash Desk</span></dt>
+        <dd>
+            <div *ngIf="manage.cashDesk">
+                <a [routerLink]="['/cash-desk', manage.cashDesk?.id]">{{manage.cashDesk?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'manage/'+ manage.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

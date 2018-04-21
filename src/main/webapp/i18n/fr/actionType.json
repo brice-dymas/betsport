@@ -1,0 +1,10 @@
+{
+    "betsportV2App": {
+        "ActionType" : {
+            "null": "",
+            "ADD": "ADD",
+            "REMOVE": "REMOVE",
+            "NOTHING": "NOTHING"
+        }
+    }
+}

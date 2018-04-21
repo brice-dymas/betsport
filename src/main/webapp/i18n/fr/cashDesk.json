@@ -1,0 +1,24 @@
+
+{
+    "betsportV2App": {
+        "cashDesk" : {
+            "home": {
+                "title": "CashDesks",
+                "createLabel": "Créer un nouveau Cash Desk",
+                "createOrEditLabel": "Créer ou éditer un Cash Desk"
+            },
+            "created": "Un nouveau Cash Desk a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Cash Desk avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Cash Desk avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Cash Desk {{ id }} ?"
+            },
+            "detail": {
+                "title": "Cash Desk"
+            },
+            "title": "Title",
+            "cashAmount": "Cash Amount",
+            "state": "State"
+        }
+    }
+}

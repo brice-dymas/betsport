@@ -1,0 +1,30 @@
+
+<div *ngIf="amount">
+    <h2><span jhiTranslate="betsportV2App.amount.detail.title">Amount</span> {{amount.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="betsportV2App.amount.value">Value</span></dt>
+        <dd>
+            <span>{{amount.value}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.amount.state">State</span></dt>
+        <dd>
+            <span jhiTranslate="{{'betsportV2App.State.' + amount.state}}">{{amount.state}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'amount/'+ amount.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

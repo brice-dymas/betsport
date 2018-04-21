@@ -1,0 +1,43 @@
+
+<div *ngIf="employee">
+    <h2><span jhiTranslate="betsportV2App.employee.detail.title">Employee</span> {{employee.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="betsportV2App.employee.photo">Photo</span></dt>
+        <dd>
+            <div *ngIf="employee.photo">
+                <a (click)="openFile(employee.photoContentType, employee.photo)">
+                    <img [src]="'data:' + employee.photoContentType + ';base64,' + employee.photo" style="max-width: 100%;" alt="employee image"/>
+                </a>
+                {{employee.photoContentType}}, {{byteSize(employee.photo)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.employee.phoneNumber">Phone Number</span></dt>
+        <dd>
+            <span>{{employee.phoneNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.employee.state">State</span></dt>
+        <dd>
+            <span jhiTranslate="{{'betsportV2App.State.' + employee.state}}">{{employee.state}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.employee.user">User</span></dt>
+        <dd>
+            {{employee.user?.id}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'employee/'+ employee.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

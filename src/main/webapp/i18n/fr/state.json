@@ -1,0 +1,9 @@
+{
+    "betsportV2App": {
+        "State" : {
+            "null": "",
+            "ACTIVE": "ACTIVE",
+            "INACTIVE": "INACTIVE"
+        }
+    }
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Transaction.
+    -->
+    <changeSet id="20180421125344-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_employee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="cash_desk_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_cash_desk_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cash_desk"/>
+
+        <addForeignKeyConstraint baseColumnNames="player_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_player_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="player"/>
+
+        <addForeignKeyConstraint baseColumnNames="payment_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_payment_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="transaction"/>
+
+        <addForeignKeyConstraint baseColumnNames="opening_transaction_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_opening_transaction_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="transaction"/>
+
+        <addForeignKeyConstraint baseColumnNames="type_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="transaction_type"/>
+
+    </changeSet>
+</databaseChangeLog>

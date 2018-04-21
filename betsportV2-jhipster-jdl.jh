@@ -1,0 +1,117 @@
+enum State{
+	ACTIVE, INACTIVE
+}
+enum ActionType{
+	ADD, REMOVE, NOTHING
+}
+/**
+ * Player entity.
+ * @author The UrServices team.
+ */
+entity Player {
+	firstName String required minlength(2)
+    lastName String required minlength(2)
+    email String
+    phoneNumber String
+	state State required
+}
+/**
+ * Employee entity.
+ * @author The UrServices team.
+ */
+entity Employee {
+	photo ImageBlob
+    phoneNumber String
+    state State required
+}
+/**
+ * Assignment entity.
+ * @author The UrServices team.
+ */
+entity Assignment {
+    assignedDate LocalDate
+    assignedTime ZonedDateTime required
+    state State required
+}
+
+/**
+ * Period entity.
+ * @author The UrServices team.
+ */
+entity Period{
+    beginingHour ZonedDateTime required
+    endingHour ZonedDateTime required
+    state State required
+}
+
+/**
+ * TransactionType entity.
+ * @author The UrServices team.
+ */
+entity TransactionType{
+	name String required minlength(3)
+    action ActionType required
+}
+
+
+/**
+ * Amount entity.
+ * @author The UrServices team.
+ */
+entity Amount{
+	value BigDecimal required
+	state State required
+}
+
+/**
+ * Transaction entity.
+ * @author The UrServices team.
+ */
+entity Transaction{
+    code String required minlength(3)
+	transactionTime ZonedDateTime required
+    transactionDate LocalDate
+    amount BigDecimal min(0) required
+	state State required
+}
+
+/**
+ * CashDesk entity.
+ * @author The UrServices team.
+ */
+entity CashDesk{
+    title String required minlength(3)
+	cashAmount BigDecimal min(0)
+	state State required
+}
+
+/**
+ * Manage entity.
+ * @author The UrServices team.
+ */
+entity Manage{
+	managementDate ZonedDateTime required
+	state State required
+}
+// defining multiple ManyToOne relationships
+relationship ManyToOne {
+    Assignment{employee} to Employee,
+    Assignment{period} to Period,
+    Manage{cashier} to Employee,
+    Manage{cashDesk} to CashDesk,
+    Transaction{employee} to Employee,
+    Transaction{cashDesk} to CashDesk,
+    Transaction{player} to Player,
+    Transaction{payment} to Transaction,
+    Transaction{openingTransaction} to Transaction,
+    Transaction{type} to TransactionType
+}
+
+relationship OneToOne {
+    Employee{user} to User
+}
+// Set pagination options
+paginate all with pagination
+
+// Set service options to all except few
+service all with serviceImpl

@@ -1,0 +1,34 @@
+
+<div *ngIf="cashDesk">
+    <h2><span jhiTranslate="betsportV2App.cashDesk.detail.title">Cash Desk</span> {{cashDesk.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="betsportV2App.cashDesk.title">Title</span></dt>
+        <dd>
+            <span>{{cashDesk.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.cashDesk.cashAmount">Cash Amount</span></dt>
+        <dd>
+            <span>{{cashDesk.cashAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="betsportV2App.cashDesk.state">State</span></dt>
+        <dd>
+            <span jhiTranslate="{{'betsportV2App.State.' + cashDesk.state}}">{{cashDesk.state}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'cash-desk/'+ cashDesk.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

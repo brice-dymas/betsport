@@ -1,0 +1,24 @@
+
+{
+    "betsportV2App": {
+        "period" : {
+            "home": {
+                "title": "Periods",
+                "createLabel": "Créer un nouveau Period",
+                "createOrEditLabel": "Créer ou éditer un Period"
+            },
+            "created": "Un nouveau Period a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Period avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Period avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Period {{ id }} ?"
+            },
+            "detail": {
+                "title": "Period"
+            },
+            "beginingHour": "Begining Hour",
+            "endingHour": "Ending Hour",
+            "state": "State"
+        }
+    }
+}

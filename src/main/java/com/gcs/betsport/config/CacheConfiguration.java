@@ -42,6 +42,15 @@ public class CacheConfiguration {
             cm.createCache(com.gcs.betsport.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.gcs.betsport.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.gcs.betsport.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.Player.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.Employee.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.Assignment.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.Period.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.TransactionType.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.Amount.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.Transaction.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.CashDesk.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gcs.betsport.domain.Manage.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

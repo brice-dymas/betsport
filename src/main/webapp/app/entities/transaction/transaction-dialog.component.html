@@ -1,0 +1,141 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTransactionLabel" jhiTranslate="betsportV2App.transaction.home.createOrEditLabel">Create or edit a Transaction</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!transaction.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="transaction.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.code" for="field_code">Code</label>
+            <input type="text" class="form-control" name="code" id="field_code"
+                [(ngModel)]="transaction.code" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.code?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                   This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.transactionTime" for="field_transactionTime">Transaction Time</label>
+            <div class="d-flex">
+                <input id="field_transactionTime" type="datetime-local" class="form-control" name="transactionTime" [(ngModel)]="transaction.transactionTime"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.transactionTime?.dirty && editForm.controls.transactionTime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.transactionTime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.transactionTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.transactionDate" for="field_transactionDate">Transaction Date</label>
+            <div class="input-group">
+                <input id="field_transactionDate" type="text" class="form-control" name="transactionDate" ngbDatepicker  #transactionDateDp="ngbDatepicker" [(ngModel)]="transaction.transactionDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="transactionDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.amount" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                [(ngModel)]="transaction.amount" required min="0"/>
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.state" for="field_state">State</label>
+            <select class="form-control" name="state" [(ngModel)]="transaction.state" id="field_state"  required>
+                <option value="ACTIVE">{{'betsportV2App.State.ACTIVE' | translate}}</option>
+                <option value="INACTIVE">{{'betsportV2App.State.INACTIVE' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.state?.dirty && editForm.controls.state?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.state?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.employee" for="field_employee">Employee</label>
+            <select class="form-control" id="field_employee" name="employee" [(ngModel)]="transaction.employee" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="employeeOption.id === transaction.employee?.id ? transaction.employee : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.cashDesk" for="field_cashDesk">Cash Desk</label>
+            <select class="form-control" id="field_cashDesk" name="cashDesk" [(ngModel)]="transaction.cashDesk" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="cashDeskOption.id === transaction.cashDesk?.id ? transaction.cashDesk : cashDeskOption" *ngFor="let cashDeskOption of cashdesks; trackBy: trackCashDeskById">{{cashDeskOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.player" for="field_player">Player</label>
+            <select class="form-control" id="field_player" name="player" [(ngModel)]="transaction.player" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="playerOption.id === transaction.player?.id ? transaction.player : playerOption" *ngFor="let playerOption of players; trackBy: trackPlayerById">{{playerOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.payment" for="field_payment">Payment</label>
+            <select class="form-control" id="field_payment" name="payment" [(ngModel)]="transaction.payment" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="transactionOption.id === transaction.payment?.id ? transaction.payment : transactionOption" *ngFor="let transactionOption of transactions; trackBy: trackTransactionById">{{transactionOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.openingTransaction" for="field_openingTransaction">Opening Transaction</label>
+            <select class="form-control" id="field_openingTransaction" name="openingTransaction" [(ngModel)]="transaction.openingTransaction" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="transactionOption.id === transaction.openingTransaction?.id ? transaction.openingTransaction : transactionOption" *ngFor="let transactionOption of transactions; trackBy: trackTransactionById">{{transactionOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="betsportV2App.transaction.type" for="field_type">Type</label>
+            <select class="form-control" id="field_type" name="type" [(ngModel)]="transaction.type" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="transactionTypeOption.id === transaction.type?.id ? transaction.type : transactionTypeOption" *ngFor="let transactionTypeOption of transactiontypes; trackBy: trackTransactionTypeById">{{transactionTypeOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
